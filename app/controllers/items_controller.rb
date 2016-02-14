@@ -9,4 +9,36 @@ class ItemsController < ApplicationController
     @items = Item.all
   end
 
+  def new
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.new(item_params)
+    @item.save
+    redirect_to @item
+  end
+
+  def edit
+    @item = Item.find(params[:id])
+    # DBから抜く。
+  end
+
+  def update
+    # ItemsController ::update
+    # Item::update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    # updateは変更した箇所のみ探して送る。
+     redirect_to @item
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(
+      :name, :description, :price,
+      :email, :seller_id, :image_url
+      )
+  end
 end
