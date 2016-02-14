@@ -33,6 +33,13 @@ class ItemsController < ApplicationController
      redirect_to @item
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    # まずupdate(削除)した情報を取得する。
+    @item.destroy
+    redirect_to items_url
+  end
+
   private
 
   def item_params
